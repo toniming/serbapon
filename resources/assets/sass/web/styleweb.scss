@@ -1,0 +1,48 @@
+            body{
+                font-family: Noto Sans, Arial;
+                color: #3E3E3E;
+            }
+            .border-left-card{
+                border-left: 1px solid #ccc;
+            }
+
+            @media (max-width:768px){
+                .border-left-card{
+                    border-left: 0px;
+                    border-top:1px solid #ccc;
+                }
+            }
+
+            .card:hover{
+				  box-shadow: 3px 3px 3px #bfbfbf;
+				}
+
+				.green{
+				  background:#4c881c;
+				}
+
+				#footer {
+				   position:fixed;
+				   bottom:0;
+				   width:100%;
+				}
+
+				.btn:hover{
+				  box-shadow: 2px 2px 2px #bfbfbf;
+				}
+
+				.green-text{
+				  color: #36a513;
+				}
+
+				.navbar-color{
+				  background-color:#e6e8e6;
+				}
+
+				.black-text{
+				  color:black;
+				}
+
+				.btn-view-all{
+				  background-image:linear-gradient(to bottom,#fffefe 0,#f0eeef 100%);
+				}
