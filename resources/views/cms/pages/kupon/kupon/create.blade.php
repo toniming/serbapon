@@ -2,9 +2,9 @@
 @section('page_content')
 
 @if(is_null($page_datas->id))
-	{!! Form::open(['url' => route('cms.kupon.kupon.store'), 'method' => 'post' ]) !!}
+	{!! Form::open(['url' => route('cms.kupon.kupon.store'), 'method' => 'post','files' => true ]) !!}
 @else
-	{!! Form::open(['url' => route('cms.kupon.kupon.update', ['id' => $page_datas->id]), 'method' => 'patch' ]) !!}
+	{!! Form::open(['url' => route('cms.kupon.kupon.update', ['id' => $page_datas->id]), 'method' => 'patch','files' => true ]) !!}
 @endif
 	<div class="card">
 		@include('cms.widgets.alertbox')
@@ -27,32 +27,24 @@
 				{!! Form::text('title', $page_datas->datas['title'], ['class' => 'form-control']) !!}
 			</fieldset>
 			<fieldset class="form-group">
-				<label for="name">Slug</label>
-				{!! Form::text('slug', $page_datas->datas['slug'], ['class' => 'form-control']) !!}
+				<label for="name">Images</label>
+				{!! Form::file('images',$page_datas->datas['images'], ['class' => 'form-control']) !!}
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Description</label>
 				{!! Form::textarea('description', $page_datas->datas['description'], ['class' => 'form-control', 'rows' => '5']) !!}
 			</fieldset>
 			<fieldset class="form-group">
-				<label for="name">Images</label>
-				{!! Form::text('images', $page_datas->datas['image'], ['class' => 'form-control']) !!}
-			</fieldset>		
+				<label for="name">Sell</label>
+				{!! Form::text('sell', $page_datas->datas['sell'], ['class' => 'form-control']) !!}
+			</fieldset>	
 			<fieldset class="form-group">
-				<label for="name">Tags</label>
-				{!! Form::text('tags', $page_datas->datas['tags'], ['class' => 'form-control']) !!}
+				<label for="name">Old-Price</label>
+				{!! Form::text('old_price', $page_datas->datas['old_price'], ['class' => 'form-control']) !!}
 			</fieldset>
 			<fieldset class="form-group">
-				<label for="name">Type</label>
-				{!! Form::text('type', $page_datas->datas['type'], ['class' => 'form-control']) !!}
-			</fieldset>
-			<fieldset class="form-group">
-				<label for="name">Extra Fields</label>
-				{!! Form::text('extra_fields', $page_datas->datas['extra_fields'], ['class' => 'form-control']) !!}
-			</fieldset>
-			<fieldset class="form-group">
-				<label for="name">User</label>
-				{!! Form::text('users', $page_datas->datas['users'], ['class' => 'form-control']) !!}
+				<label for="name">Price</label>
+				{!! Form::text('price', $page_datas->datas['price'], ['class' => 'form-control']) !!}
 			</fieldset>
 		</div>
 	</div>

@@ -15,12 +15,19 @@
   			<li class="nav-item">
   				<a href="{{ url('/promo') }}" class="nav-link white-text m-r-2 p-b-0"><strong>ALL DEALS</strong></a>
   			</li>
+        @if(is_null(Session::get('User')))
   			<li class="nav-item">
   				<a href ="{{ url('/signin') }}" class="nav-link white-text m-r-2 p-b-0"><strong>SIGN UP / SIGN IN</strong></a>
   			</li>
+        @endif
   			<li class="nav-item">
-  				<a href="{{ url('/info') }}" class="nav-link white-text"><strong>CONTACT US</strong></a>
+  				<a href="{{ url('/info') }}" class="nav-link white-text m-r-2 p-b-0"><strong>CONTACT US</strong></a>
   			</li>
+        @if(Session::has('User'))
+        <li class="nav-item">
+          <a class="nav-link white-text m-r-2 p-b-0 w-100" href="{{ url('/logout') }}"><strong><i class="fa fa-sign-out"></i>Logout</strong></a>
+        </li>
+        @endif
   		</ul>
     </div>
 	</div>

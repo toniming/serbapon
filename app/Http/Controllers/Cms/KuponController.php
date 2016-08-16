@@ -3,19 +3,19 @@
 namespace app\Http\Controllers\Cms;
 
 use app\Http\Controllers\BaseController;
-use app\Model\Users;
+use app\Model\Kupon;
 use Request, Input, URL, Redirect;
 
 class KuponController extends BaseController
 {
     // init
     protected $view_root    = 'cms.pages';
-    protected $page_title   = 'Promo';
+    protected $page_title   = 'kupon';
     protected $breadcrumb   = [];
 
     public function index()
     {
-        $datas                                  = Users::paginate(10);
+        $datas                                  = Kupon::paginate(10);
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = null;
         //page attributes
@@ -32,7 +32,7 @@ class KuponController extends BaseController
         $datas                                  = null;
         
         if($id != null){
-            $datas                              = Users::find($id);
+            $datas                              = Kupon::find($id);
         }
         //set data
         $this->page_datas->datas                = $datas;
@@ -52,21 +52,23 @@ class KuponController extends BaseController
     public function store($id = null)
     {
         //get input
-        $input                                  = Input::only('title','slug', 'description', 'images', 'tags', 'type', 'extra_fields', 'users');
+        $input                                   = Input::only('title','images', 'description', 'sell', 'old_price', 'price');
+
+        $file= Input::file('images');
+        Input::file('images')->move('C:\xampp\htdocs\serbaponbackend\public\images',Input::file('images')->getClientOriginalName());
         //create or edit
-        $promo                                  = Users::findOrNew($id);
-        //save data
-        $promo->title                           = $input['title'];
-        $promo->slug                            = $input['slug'];
-        $promo->description                     = $input['description'];
-        $promo->images                          = $input['images'];
-        $promo->tags                            = $input['tags'];
-        $promo->type                            = $input['type'];
-        $promo->extra_fields                    = $input['extra_fields'];
-        $promo->users                           = $input['users'];
-        $promo->published_at                    = date('Y-m-d H:m:s');
+        $kupon                                   = Kupon::findOrNew($id);
         
-        $promo->save();
+        //save data
+        $kupon->title                            = $input['title'];
+        $kupon->images                           = $input['images'];
+        $kupon->description                      = $input['description'];
+        $kupon->sell                             = $input['sell'];
+        $kupon->old_price                        = $input['old_price'];
+        $kupon->price                            = $input['price'];
+        $kupon->published_at                     = date('Y-m-d H:m:s');
+        
+        $kupon->save();
         $this->page_attributes->msg             = 'Data telah disimpan';
         return Redirect::to('/cms/kupon/kupon')->with('msg', 'Data telah disimpan.');
     }
@@ -74,7 +76,7 @@ class KuponController extends BaseController
     public function show($id)
     {
         //get data
-        $datas                                  = Users::find($id);
+        $datas                                  = Kupon::find($id);
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = $id;
         //page attributes
@@ -97,7 +99,7 @@ class KuponController extends BaseController
 
     public function destroy($id)
     {
-        $promo                      = Users::find($id)->delete();
+        $kupon                      = Kupon::find($id)->delete();
 
         $this->page_attributes->msg = 'Data telah dihapus.';
         return Redirect::to('/cms/kupon/kupon')->with('msg', 'Data telah disimpan.');

@@ -10,11 +10,11 @@
                 <div class="col-md-1 col-lg-1">&nbsp;</div>
                 <div class="col-md-10 col-lg-10">
                     <div class="col-md-8 col-lg-8">
-                        <?php 
-                            $data = json_decode($data); 
-                            $related = json_decode($related);
-                        ?>
-                        @foreach($data as $content)
+                        <!-- <?php 
+                           $data = json_decode($data); 
+                           $related = json_decode($related);
+                        ?>-->
+                        @foreach ($kupon as $kupons)
                         <div class="card p-a-2">
                             <h3>{{ $content->title }}</h3>
                             <hr />

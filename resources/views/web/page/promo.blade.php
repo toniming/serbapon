@@ -18,14 +18,24 @@
         <div class="container">
             <div class="row">
             <hr>
-            @for ($x=1; $x<=6; $x++)
+            @foreach ($kupon as $kupons)
                 <div class="col-md-4 col-lg-4 p-b-2">
                     <a href="{{ url('/kupon/detail/{id}') }}" >
                         <div class="card bg-faded">
-                            {!! Html::image('images/promo3.jpg', null, ['class' => 'card-img-top img-fluid']) !!}
+                            {!! Html::image('images/'.$kupons['images']['originalName'], null, ['class' => 'card-img-top img-fluid']) !!}
                             <div class="card-block">
                                 <h5 class="card-title">
-                                    <a class="dark-blue-text">Promo Daster Slim Matahari Mall 50%</a>
+                                    <a class="dark-blue-text">
+                                    <?php
+                                            $sum=strlen($kupons['title']);
+                                            $sum2=$sum-55;
+                                            if($sum > 55)
+                                                $title = substr($kupons['title'],0,$sum-$sum2)."...";
+                                            else
+                                                $title = $kupons['title'];
+                                        ?>
+
+                                        {{ $title }}</a>
                                 </h5>
                                 <div class="row">
                                     <div class="col-md-6 col-lg-6">
@@ -37,17 +47,37 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3 col-lg-3">
-                                        <p class="tag dark-text">Terjual</p>
+                                        <p class="tag dark-text">{{ $kupons['sell'] }}+Terjual</p>
                                     </div>
                                     <div class="col-md-9 col-lg-9 text-xs-right">
-                                        <span class="tag dark-text"><strike><i>Rp. 70.000</i></strike><font size="5" class="green-text"> Rp.10.000</font> </span>
+                                        <span class="tag dark-text"><strike><i>
+                                        <?php
+                                                $count= strlen($kupons['old_price']);
+                                                $price = 0;
+                                                if($count<=6)
+                                                    $price = substr($kupons['old_price'],0,$count-3).".".substr($kupons['old_price'],$count-3,3);
+                                                else if ($count==7)
+                                                    $price = substr($kupons['old_price'],0,$count-6).".".substr($kupons['old_price'],1,3).".".substr($kupons['old_price'],$count-3,3);
+
+                                            ?>
+                                            Rp {{$price}}</i></strike><font size="5" class="green-text">
+                                            <?php
+                                                $count= strlen($kupons['price']);
+                                                $price2 = 0;
+                                                if($count<=6)
+                                                    $price2 = substr($kupons['price'],0,$count-3).".".substr($kupons['price'],$count-3,3);
+                                                else if ($count==7)
+                                                    $price2 = substr($kupons['price'],0,$count-6).".".substr($kupons['price'],1,3).".".substr($kupons['price'],$count-3,3);
+
+                                            ?>
+                                            Rp {{ $price2}}</font> </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                       </a>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
             

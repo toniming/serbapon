@@ -12,8 +12,8 @@
                     <div class="simple-box margin-bottom-300">
                         <h4><b>Anda berhasil aktivasi akun</b></h4>
                         <br>
-                        <h6>Terima kasih, pendaftaran anda telah berhasil dan bergabung dengan adapromo.id.<br><br>
-                        Untuk melihat promo-promo yang berlangsung lihat <a href="">disini</a></h6>
+                        <h6>Terima kasih, pendaftaran anda telah berhasil dan bergabung dengan Serbapon.id.<br><br>
+                        Silahkan melakukan login kembali <a href="/signin">disini</a></h6>
                         <div style="clear:both;"></div>
                     </div>
                     </center>

@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+@if(is_null(Session::get('Admin')) && is_null(Session::get('Editor')))
+    <script>
+        window.location.href = '{{url("/cms/login")}}'; 
+    </script>
+@endif
 <html lang="en">
     <head>
 		<meta charset="utf-8"/>

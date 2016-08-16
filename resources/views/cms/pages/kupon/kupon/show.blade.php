@@ -24,29 +24,26 @@
 			'title'		=> 'kupon Title',
 			'content'	=>  ucfirst($page_datas->datas['title'])
 		]])
+		{!! Html::image('images/'.$page_datas->datas['images']['originalName'], null, ['class' => 'card-img-top img-fluid', 'style' => 'height:200px; width:200px']) !!}
 		@include('cms.widgets.components.detail.detail-text',['component' => [
-			'title'		=> 'kupon Slug',
-			'content'	=>  ucfirst($page_datas->datas['slug'])
+			'title'		=> 'Image',
+			'content'	=>  ucfirst($page_datas->datas['images']['originalName'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
 			'title'		=> 'kupon Description',
 			'content'	=>  ucfirst($page_datas->datas['description'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
-			'title'		=> 'kupon Tags',
-			'content'	=>  ucfirst($page_datas->datas['tags'])
+			'title'		=> 'kupon sell',
+			'content'	=>  ucfirst($page_datas->datas['sell'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
-			'title'		=> 'kupon Type',
-			'content'	=>  ucfirst($page_datas->datas['type'])
+			'title'		=> 'kupon old_price',
+			'content'	=>  ucfirst($page_datas->datas['old_price'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
-			'title'		=> 'Extra Fields',
-			'content'	=>  ucfirst($page_datas->datas['extra_fields'])
-		]])
-		@include('cms.widgets.components.detail.detail-text',['component' => [
-			'title'		=> 'Users',
-			'content'	=>  ucfirst($page_datas->datas['users'])
+			'title'		=> 'kupon price',
+			'content'	=>  ucfirst($page_datas->datas['price'])
 		]])
 		@include('cms.widgets.components.detail.detail-date',['component' => [
 			'title'		=> 'Publish Time',

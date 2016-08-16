@@ -16,7 +16,7 @@
 					<tr>
 						<th class="col-md-1">#</th>
 						<th class="col-md-3">Title</th>
-						<th class="col-md-4">Slug</th>
+						<th class="col-md-4">Description</th>
 						<th class="col-md-2">Published at</th>
 						<th class="col-md-2 text-xs-right">Control</th>
 					</tr>
@@ -33,7 +33,7 @@
 								</a>
 							</td>
 							<td class="col-md-4">
-								{{ $data['slug'] }}
+								{{ $data['description'] }}
 							</td>
 							<td class="col-md-2">
 								{{ $data['published_at'] }}

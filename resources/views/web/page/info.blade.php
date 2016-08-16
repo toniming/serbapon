@@ -1,6 +1,6 @@
         @extends('web.template')
-        @section('navbar-red')
-            @include('web.component.navbar-detail')
+        @section('navbar')
+            @include('web.component.navbar')
         @stop
         @section('content')
         <!-- content -->

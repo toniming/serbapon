@@ -13,7 +13,7 @@
 			'title' 		=> 'Kupon',
 			'description' 	=> 'Pengaturan Kupon',
 			'components' => [
-								'0' => ['link' => '#', 'caption' => 'Kupon'],
+								'0' => ['link' => Route('cms.kupon.kupon.create') , 'caption' => 'Kupon'],
 		]])
 		</div>
  

@@ -2,7 +2,7 @@
 
 namespace app\Http\Controllers;
 
-use app\User;
+use app\Model\Kupon;
 use app\Http\Controllers\Controller;
 
 use Request;
@@ -15,23 +15,14 @@ use View;
 class HomeController extends Controller
 {
     public function home(){
-        return View::make('web.page.home_page');
+        $kupon1 = new Kupon();
+        $kupon = $kupon1::skip(0)->take(6)->get();
+        return View::make('web.pages.home')->with(['kupon' => $kupon]);
     }
     public function promo(){
-        $promo = array(
-           array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                 'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-           array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                 'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-           array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                 'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-           array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                 'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-           array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                 'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.')
-           );
-       $promo = json_encode($promo);
-        return View::make('web.page.promo')->with('promo',$promo);
+        $kupon1 = new Kupon();
+        $kupon = $kupon1::all();
+        return View::make('web.page.promo')->with(['kupon' => $kupon]);
     }
     public function promo_detail($id){
         $data = array(
@@ -55,15 +46,15 @@ class HomeController extends Controller
     }
     
     public function signin(Request $request){
-        $user1 = new User();
-        $user = $user1::all();
-        return View::make('web.page.sign_in_sign_up')->with(['user' => $user]);
+        $kupon1 = new Kupon();
+        $kupon = $kupon1::all();
+        return View::make('web.page.sign_in_sign_up')->with(['kupon' => $kupon]);
     }
 
     public function edit($id){
-        $user1 = new User();
-        $user=$user1::where('_id',$id)->get();//<<< method ini sama dengan User::find($id)
-        return View::make('web.page.sign_in_sign_up')->with(['user' => $user]);
+        $kupon1 = new Kupon();
+        $kupon=$kupon1::where('_id',$id)->get();//<<< method ini sama dengan kupon::find($id)
+        return View::make('web.page.sign_in_sign_up')->with(['kupon' => $kupon]);
     }
 
     public function submit(){
@@ -75,26 +66,26 @@ class HomeController extends Controller
     //);
 
     //DB::table('movie-star')->insert($data);
-       $user1 = new User();
-       $user1 = Request::all();
-       User::create($user1);
+       $kupon1 = new Kupon();
+       $kupon1 = Request::all();
+       kupon::create($kupon1);
        return Redirect::to('/');
     }
 
     public function update()
     {
-       $user1 = new User();
-       $userUpdate=Request::all();
+       $kupon1 = new Kupon();
+       $kuponUpdate=Request::all();
        $id = Input::get('_id');
-       $user=User::find($id);
-       $user->update($userUpdate);
+       $kupon=kupon::find($id);
+       $kupon->update($kuponUpdate);
        return Redirect::to('/signin');
     }
 
     public function destroy($id)
     {
-       $user1 = new User();
-       $user1::where('_id',$id)->delete();
+       $kupon1 = new Kupon();
+       $kupon1::where('_id',$id)->delete();
        return Redirect::to('/signin');
     }
     
