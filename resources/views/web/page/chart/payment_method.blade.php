@@ -1,0 +1,82 @@
+        @extends('web.template')
+        @section('navbar')
+            @include('web.component.navbar')
+        @stop
+        @section('content')
+        <!-- content -->
+        <div class="container">
+            <div class="card" style="margin-top:20px">
+                <div class="card-block white-text" style="background-color:#808080">
+                    <b>Pembayaran</b>
+                </div>
+
+                <div class="card-block">
+                    Lakukan pembayaran dengan mentransfer ke rek<br>
+                    BCA 726-1897-981 Serbapon.id<br>
+                    MANDIRI 1726-91729-22 Serbapon.id<br>
+                    BNI 7261918-8819 Serbapon.id<br>
+                    dengan memberikan kode transaksi <b style="font-size:20px">{{Session::get('id_nota')}}</b><br>
+                </div>
+
+                <div class="card-block" style="background-color:#ccc">
+                    <div class="col-md-3 col-lg-3 black-text">
+                        <h5><b>Detail Pembelian</b></h5>
+                    </div>
+                </div>
+                <?php $total = 0; ?>
+                @foreach ($kupon as $k => $kupons)
+                @if(Session('id') == $kupons['id_user'])
+                <div class="card-block" style="background-color:#ccc">
+                    <div class="col-md-5 col-lg-5 black-text">
+                        {{ $kupons['title'] }} <br>
+                    </div>
+                    <div class="col-md-1 col-lg-1 black-text">
+                        <b>{{ $kupons['quantity' ]}}</b><br>
+                    </div>
+                    <div class="col-md-2 col-lg-2 black-text">
+                    <?php
+                                                $count= strlen($kupons['sum_price']);
+                                                $price2 = 0;
+                                                if($count<=6)
+                                                    $price2 = substr($kupons['sum_price'],0,$count-3).".".substr($kupons['sum_price'],$count-3,3);
+                                                else if ($count==7)
+                                                    $price2 = substr($kupons['sum_price'],0,$count-6).".".substr($kupons['sum_price'],1,3).".".substr($kupons['sum_price'],$count-3,3);
+                    ?>
+                                            Rp {{ $price2 }}
+                    </div>
+                </div>
+                <?php 
+                    $total += $kupons['sum_price'];
+                ?>
+                @endif
+                @endforeach
+
+                <div class="card-block" style="background-color:#ccc">
+                    <div class="col-md-5 col-lg-5 black-text">
+                        <h5><b>Total Pembayaran :</b><h5>
+                    </div>
+                    <div class="col-md-1 col-lg-1 black-text">
+                        <b style="font-size:20px">=</b><br>
+                    </div>
+                    <div class="col-md-2 col-lg-2"><b style="font-size:20px">
+                    <?php
+                                                $count= strlen($total);
+                                                $price2 = 0;
+                                                if($count<=6)
+                                                    $price2 = substr($total,0,$count-3).".".substr($total,$count-3,3);
+                                                else if ($count==7)
+                                                    $price2 = substr($total,0,$count-6).".".substr($total,1,3).".".substr($total,$count-3,3);
+                    ?>
+                                            Rp {{ $price2 }}
+                    </b></div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <a href="/konfirmasi_pembayaran/{{$total}}" class="btn btn-block btn-success" style="height:60px; width:300px; padding-top:20px"><b>Check Out</b></a><br>
+            </div>
+        </div>
+        <!-- end content -->
+        @stop
+        @section('footer')
+            @include('web.component.footer')
+        @stop

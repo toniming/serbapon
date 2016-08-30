@@ -30,8 +30,24 @@
 			'content'	=>  ucfirst($page_datas->datas['images']['originalName'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
+			'title'		=> 'Category',
+			'content'	=>  ucfirst($page_datas->datas['category'])
+		]])
+		@include('cms.widgets.components.detail.detail-text',['component' => [
+			'title'		=> 'Location',
+			'content'	=>  ucfirst($page_datas->datas['location'])
+		]])
+		@include('cms.widgets.components.detail.detail-text',['component' => [
 			'title'		=> 'kupon Description',
 			'content'	=>  ucfirst($page_datas->datas['description'])
+		]])
+		@include('cms.widgets.components.detail.detail-text',['component' => [
+			'title'		=> 'Start Date',
+			'content'	=>  ucfirst($page_datas->datas['start'])
+		]])
+		@include('cms.widgets.components.detail.detail-text',['component' => [
+			'title'		=> 'End date',
+			'content'	=>  ucfirst($page_datas->datas['end'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
 			'title'		=> 'kupon sell',

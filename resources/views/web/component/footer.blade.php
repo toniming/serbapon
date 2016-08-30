@@ -91,7 +91,7 @@
 						</div>
 						<div class="row hidden-md-down">
 							<div class="col-md-12 col-lg-12">
-								{!! Form::open(array('url' => '/sendemail')) !!} 
+								{!! Form::open(array('url' => '/subscribe', 'method' => 'post')) !!} 
 									<fieldset class="form-group">
 										<div class="input-group">
 										  	{!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'alamat email anda']) !!}

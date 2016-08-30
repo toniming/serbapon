@@ -17,6 +17,7 @@ class UserController extends Controller
 {   
     public function login(){
         $user1          = new User();
+        $user11         = User::all();
         $user           = Input::all();
         $login          = $user1::where('email', $user['email'])->where('password', hash('md5',$user['password']))->where('role', 'User')->count();
           if($login > 0){
@@ -26,10 +27,15 @@ class UserController extends Controller
                   ->with('message-danger', "Anda belum melakukan aktivasi email, silahkan melakukan aktivasi email terlebih dahulu.");
               }
               else{
-                session(['User' => 'true', 'email' => $user['email']]);
+                //$string = str_random(40);
+                foreach($user11 as $user11s){
+                if($user['email'] == $user11s->email){
+                session(['User' => 'true', 'email' => $user['email'],'id' => $user11s->_id]);
                 return Redirect::to('/');
               }
+            }
           }
+        }
           else
             return Redirect::to('/signin')->with('message-danger', "Login gagal, pastikan username dan password anda benar.");
     }
@@ -67,7 +73,7 @@ class UserController extends Controller
                 'id'   => $user->_id,
             );
             $email = Input::get('email');
-            Mail::send('web/page/email',$data, function($message) 
+            Mail::send('web/email/email',$data, function($message) 
             use($email)
             {
               $message->to($email)->subject('Konfirmasi User Serbapon.id');
@@ -82,5 +88,48 @@ class UserController extends Controller
          $user->status  = 'Aktif';
          $user->save();
          return View::make('web.page.aktivasi');
+    }
+
+    public function profil(){
+      $data    =    User::all();
+      foreach($data as $datas){
+        if(session('email') == $datas->email){
+          $user = $datas;
+          return View::make('web.page.info_profil')->with('user',$user);
+        }
+    }
+  }
+
+    public function update($id)
+    {
+        //get input
+        $input                                 = Input::only('name','email', 'dob','sex','password_lama','password');
+        //create or edit
+        $user                                  = User::findOrNew($id);
+        //save data
+        $user->name                            = $input['name'];
+        $user->email                           = $input['email'];
+        $user->dob                             = $input['dob'];
+        $user->sex                             = $input['sex'];
+        $user->published_at                    = date('Y-m-d H:m:s');
+        
+        $user->save();
+        return Redirect::to('/profil')->with('msg', 'Data telah disimpan.');
+    }
+
+    public function update_password($id){
+        $input                                 = Input::only('password_lama','password');
+        //create or edit
+        $user                                  = User::findOrNew($id);
+        //save data
+        $ubah_pass                             = $user::where('password', hash('md5',$input['password_lama']))->where('_id', $id)->count();
+        if($ubah_pass > 0){
+            $user->password                    = hash('md5',$input['password']);
+            $user->save();
+            return Redirect::to('/profil')->with('message-success', "Ubah password Berhasil");
+        }
+        else{
+            return Redirect::to('/profil')->with('message-danger', "Ubah password gagal. password lama anda salah");
+        }
     }
 }

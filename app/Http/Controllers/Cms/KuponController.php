@@ -52,20 +52,30 @@ class KuponController extends BaseController
     public function store($id = null)
     {
         //get input
-        $input                                   = Input::only('title','images', 'description', 'sell', 'old_price', 'price');
+        $input                                   = Input::only('title','images','category','location', 'description','start','end', 'sell', 'old_price', 'price');
 
-        $file= Input::file('images');
-        Input::file('images')->move('C:\xampp\htdocs\serbaponbackend\public\images',Input::file('images')->getClientOriginalName());
         //create or edit
         $kupon                                   = Kupon::findOrNew($id);
-        
         //save data
         $kupon->title                            = $input['title'];
-        $kupon->images                           = $input['images'];
+        if($kupon->images == null){
+            $file= Input::file('images');
+            Input::file('images')->move('C:\xampp\htdocs\serbaponbackend\public\images',Input::file('images')->getClientOriginalName());
+            $kupon->images                       = $input['images'];
+        }
+        else if(Input::file('images') != null){
+            $file= Input::file('images');
+            Input::file('images')->move('C:\xampp\htdocs\serbaponbackend\public\images',Input::file('images')->getClientOriginalName());
+            $kupon->images                       = $input['images'];
+        }
+        $kupon->category                         = $input['category'];
+        $kupon->location                         = $input['location'];
         $kupon->description                      = $input['description'];
+        $kupon->start                            = $input['start'];
+        $kupon->end                              = $input['end'];
         $kupon->sell                             = $input['sell'];
         $kupon->old_price                        = $input['old_price'];
-        $kupon->price                            = $input['price'];
+        $kupon->price                            = (int)$input['price'];
         $kupon->published_at                     = date('Y-m-d H:m:s');
         
         $kupon->save();

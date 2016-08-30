@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 p-y-2">
-                    <center>{!! Html::image('images/serbapon-footer.png', null, ['class' => 'img-fluid'] ) !!}</center>
+                    <center><a href="/">{!! Html::image('images/serbapon-footer.png', null, ['class' => 'img-fluid'] ) !!}</a></center>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                                         {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => "email"]) !!}
                                         <label>Password:</label>
                                         {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
-                                        <a href="#">Lupa Password?</a><br><br>
+                                        <a href="/forgot">Lupa Password?</a><br><br>
                                         {!! Form::submit('LOGIN', ['class' => 'btn btn-block green white-text']) !!}
                                 {!! Form::close() !!}
                         </div>
@@ -49,6 +49,9 @@
                                     @if(Session::has('message-danger2'))
                                         <center><div class="alert alert-danger">{{Session::get('message-danger2')}}</div></center>
                                     @endif
+                                    @if(Session::has('non_akun'))
+                                        <center><div class="alert alert-danger">{{Session::get('non_akun')}}</div></center>
+                                    @endif
                                     <input type="hidden" name="id">
                                     <label>Nama Lengkap:</label>
                                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Nama Lengkap']) !!}
@@ -59,7 +62,7 @@
                                     <label>Re-enter Password:</label>
                                     {!! Form::password('konfirmasi-password', ['class' => 'form-control', 'id' => 'password2', 'placeholder' => 'Konfirmasi Password']) !!}
                                     <label>Tanggal Lahir:</label>
-                                    {!! Form::text('dob', null, ['class' => 'form-control', 'placeholder' => 'Tanggal Lahir']) !!}
+                                    {!! Form::date('dob', null, ['class' => 'form-control','placeholder' => 'Tanggal Lahir']) !!}
                                     <label>Jenis Kelamin:</label>
                                     {!! Form::radio('sex', 'Man', ['class' => 'form-control']) !!} Pria
                                     {!! Form::radio('sex', 'Woman', ['class' => 'form-control']) !!} Wanita<br>

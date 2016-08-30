@@ -13,7 +13,7 @@
   				<a href="/" class="nav-link white-text m-r-2 p-b-0"><strong>HOME</strong></a>
   			</li>
   			<li class="nav-item">
-  				<a href="{{ url('/promo') }}" class="nav-link white-text m-r-2 p-b-0"><strong>ALL DEALS</strong></a>
+  				<a href="{{ url('/kupon') }}" class="nav-link white-text m-r-2 p-b-0"><strong>ALL DEALS</strong></a>
   			</li>
         @if(is_null(Session::get('User')))
   			<li class="nav-item">
@@ -24,6 +24,12 @@
   				<a href="{{ url('/info') }}" class="nav-link white-text m-r-2 p-b-0"><strong>CONTACT US</strong></a>
   			</li>
         @if(Session::has('User'))
+        <li class="nav-item">
+          <a class="nav-link white-text m-r-2 p-b-0 w-100" href="/profil"><strong><i class="fa fa-user fa-lg"></i></strong></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link white-text m-r-2 p-b-0 w-100" href="/chart/pembelian"><strong><i class="fa fa-shopping-cart fa-lg"></i></strong></a>
+        </li>
         <li class="nav-item">
           <a class="nav-link white-text m-r-2 p-b-0 w-100" href="{{ url('/logout') }}"><strong><i class="fa fa-sign-out"></i>Logout</strong></a>
         </li>

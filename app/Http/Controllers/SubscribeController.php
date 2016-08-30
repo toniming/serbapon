@@ -1,10 +1,10 @@
 <?php
 
-namespace app\Http\Controllers\Web;
+namespace app\Http\Controllers;
 
 use app\Http\Controllers\BaseController;
-use Request, Redirect, Input, Mail;
-use app\Models\Subscribes;
+use Request, Redirect, Input, Mail, View;
+use app\Model\Web\Subscribe;
 
 
 class SubscribeController extends BaseController 
@@ -15,43 +15,43 @@ class SubscribeController extends BaseController
 	 */
 	
 	// init
-	protected $view_root	= 'web.pages';
+	protected $view_root	= 'web.page';
 	protected $page_title	= 'Subscribe';
 	protected $breadcrumb 	= [];
 
-	function subscribe() {
+	public function subscribe() {
         $input                                  = Input::only('email');
-        $subscribe                              = new Subscribes();
-        $code_unsubscribe						= hash('md5', date("YmdHms"));
+        $subscribe                              = new Subscribe();
         //save data
         $subscribe->email 						= $input['email'];
         $subscribe->name 						= $input['email'];
         $subscribe->is_subscribe 				= true;
-        $subscribe->code_unsubscribe 			= $code_unsubscribe;
+        $subscribe->save();
+        $subscribe->unsubscribe_token 			= $subscribe->_id;
         $subscribe->save();
 
-	    Mail::send('web/email/email_subscribe', ['code_unsubscribe' => $code_unsubscribe], function ($message) {
-	        $message->to(Input::get('email'))->subject('Berlangganan Adapromo.id');
+        $data = array(
+                'unsubscribe_token' => $subscribe->unsubscribe_token,
+            );
+		$email = Input::get('email');
+	    Mail::send('web/email/email_subscribe',$data, function ($message) 
+	    use($email){
+	        $message->to($email)->subject('Berlangganan Serbapon.id');
 	    });
 	    return Redirect::to('/subscribe')->with('email', Input::get('email'));
 	}
 
-	function subscribe_success()
+	public function subscribe_success()
 	{
-		$this->page_attributes->page_title 		= $this->page_title;
-
-		$view_source 	= $this->view_root . '.subscribe';
-		$route_source 	= Request::route()->getName();
-
-		return $this->generateView($view_source, $route_source);
+		return View::make('web.page.subscribe');
 	}
 
-	function unsubscribe($code_unsubscribe) {
+	public function unsubscribe($unsubscribe_token) {
 		//update db
-        Subscribes::where('code_unsubscribe', $code_unsubscribe)->update(['is_subscribe' => false]);
+        Subscribe::where('unsubscribe_token', $unsubscribe_token)->update(['is_subscribe' => false]);
 
         //kirim email unsubscribe
-        $subscribe = Subscribes::where('code_unsubscribe', $code_unsubscribe)->get()['0']['attributes'];
+        $subscribe = Subscribe::where('unsubscribe_token', $unsubscribe_token)->get()['0']['attributes'];
         
         Mail::send('web/email/email_unsubscribe', ['email' => $subscribe['email']], function ($message) use ($subscribe){
 	        $message->to($subscribe['email'])->subject('Berhenti Berlangganan Adapromo.id');
@@ -59,12 +59,9 @@ class SubscribeController extends BaseController
 
 	    return Redirect::to('/unsubscribe');
 	}
-	function unsubscribe_newsletter(){
-		$this->page_attributes->page_title 		= $this->page_title;
+	public function unsubscribe_newsletter(){
+		//$this->page_attributes->page_title 		= $this->page_title;
 
-		$view_source 	= $this->view_root . '.unsubscribe';
-		$route_source 	= Request::route()->getName();
-
-		return $this->generateView($view_source, $route_source);
+		return View::make('web.page.unsubscribe');
 	}
 }

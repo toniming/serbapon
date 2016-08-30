@@ -12,6 +12,39 @@
                     border-top:1px solid #ccc;
                 }
             }
+            .pagination li{ 
+			  list-style: none; 
+			  float:left;
+			  margin: 0 5px;
+			 }
+
+			.pagination li a{ 
+			  background-color:#4c881c;
+			  color: white;
+			  padding: 8px 15px;
+			  border-radius: 5px;
+			 }
+
+			 .modal-content {
+				  top:100px;
+				  left:170px;
+				  border-radius: 5px;
+				  width:800px;
+				  border: none;
+			}
+
+			.modal-header {
+				  border-radius: 5px;
+				  border-bottom-color: #EEEEEE;
+				  background-color: #FAFAFA; 
+			}
+
+			@media (min-width: 544px) {
+			  .modal-dialog {
+			    max-width: 600px;
+			    margin-left:180px; }
+			  .modal-sm {
+			    max-width: 300px; } }
 
             .blue{
 				  background-color:#0275d8;

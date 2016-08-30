@@ -40,23 +40,30 @@
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Date of birth</label>
-				{!! Form::text('dob', $page_datas->datas['dob'], ['class' => 'form-control']) !!}
+				{!! Form::date('dob', $page_datas->datas['dob'], ['class' => 'form-control']) !!}
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Role</label><br>
-				{!! Form::radio('role', 'Admin' , ['class' => 'form-control']) !!} Admin &nbsp
+				<input type="radio" value="Admin" name="role"<?php if($page_datas->datas['role'] == 'Admin') echo "checked='checked'";?>>Admin &nbsp
+				<input type="radio" value="Editor" name="role"<?php if($page_datas->datas['role'] == 'Editor') echo "checked='checked'";?>>Editor &nbsp
+				<input type="radio" value="User" name="role"<?php if($page_datas->datas['role'] == 'User') echo "checked='checked'";?>>User<br>
+				<!--{!! Form::radio('role', 'Admin' , ['class' => 'form-control']) !!} Admin &nbsp
 				{!! Form::radio('role', 'Editor' , ['class' => 'form-control']) !!} Editor &nbsp
-                {!! Form::radio('role', 'User' , ['class' => 'form-control']) !!} User<br>
+                {!! Form::radio('role', 'User' , ['class' => 'form-control']) !!} User<br>-->
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Role</label><br>
-				{!! Form::radio('status', 'Aktif' , ['class' => 'form-control']) !!} Aktif &nbsp
-				{!! Form::radio('status', 'Belum_Aktif' , ['class' => 'form-control']) !!} Belum_Aktif &nbsp
+				<input type="radio" value="Aktif" name="status"<?php if($page_datas->datas['status'] == 'Aktif') echo "checked='checked'";?>>Aktif &nbsp
+				<input type="radio" value="Belum_Aktif" name="status"<?php if($page_datas->datas['status'] == 'Belum_Aktif') echo "checked='checked'";?>>Belum_Aktif &nbsp
+				<!--{!! Form::radio('status', 'Aktif' , ['class' => 'form-control']) !!} Aktif &nbsp
+				{!! Form::radio('status', 'Belum_Aktif' , ['class' => 'form-control']) !!} Belum_Aktif &nbsp-->
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Sex</label> <br>
-				{!! Form::radio('sex', 'Man' , ['class' => 'form-control']) !!} Man &nbsp
-                {!! Form::radio('sex', 'Woman' , ['class' => 'form-control']) !!} Woman<br>
+				<input type="radio" value="Man" name="sex"<?php if($page_datas->datas['sex'] == 'Man') echo "checked='checked'";?>>Man &nbsp
+				<input type="radio" value="Woman" name="sex"<?php if($page_datas->datas['sex'] == 'Woman') echo "checked='checked'";?>>Woman &nbsp
+				<!--{!! Form::radio('sex', 'Man' , ['class' => 'form-control']) !!} Man &nbsp
+                {!! Form::radio('sex', 'Woman' , ['class' => 'form-control']) !!} Woman<br>-->
 			</fieldset>
 		</div>
 	</div>

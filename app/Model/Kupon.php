@@ -11,6 +11,7 @@ class Kupon extends Eloquent
     protected $fillable             =   [
                                             'title',
                                             'image',
+                                            'location',
                                             'description',
                                             'sell',
                                             'old_price',
@@ -34,6 +35,7 @@ class Kupon extends Eloquent
      */
     protected $rules                =   [
                                             'published_at'                  => 'required|date',
+                                            'price'                         => 'required|int',
                                         ];
     /**
      * Basic error message of rule
