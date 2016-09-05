@@ -7,8 +7,6 @@
 	<div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12  m-b-3">
-                    <div class="col-md-2 col-lg-2"></div>
-                    <div class="col-md-8 col-lg-8">
                         	<div class="m-t-3 p-a-2" id="tabs">
                         	@if(Session::has('message-danger'))
 								<center><div class="alert alert-danger">{{Session::get('message-danger')}}</div></center>
@@ -19,6 +17,7 @@
 								<ul>
 									<li><a href="#profil"><strong><i class="fa fa-user">&nbsp</i>Data Profil</strong></a></li>
 									<li><a href="#Ubah_password"><strong><i class="fa fa-key">&nbsp</i>Ubah Password</strong></a></li>
+									<li><a href="#Transaksi"><strong><i class="fa fa-cart-arrow-down">&nbsp</i>Transaksi</strong></a></li>
 								</ul>
 								<div id="profil">
 									{!! Form::open(array('url' => '/update/'.$user['_id'])) !!}
@@ -108,11 +107,48 @@
 									</table>
 
 								</div>
+
+								<div id="Transaksi">
+									{!! Form::open(array('url' => '/update/'.$user['_id'])) !!}
+									<table  style="font-size:14px">
+										  <tr>
+										    <th style="padding-right:50px">Kode Transaksi</th>
+											<th style="padding-right:50px">Bank Destination</th>
+											<th style="padding-right:80px">Total</th>
+											<th style="padding-right:150px">Status</th>
+											<th style="padding-right:50px">Confirm</th>
+											<th>Date Buy</th>
+										  </tr>
+									@foreach($transaction as $transactions)
+									@if(Session('id') == $transactions['id_user'])
+										  <tr>
+										    <td><a href="/detail/pembayaran/{{ $transactions['id_notaa'] }}" style="color:blue">{{ $transactions['id_notaa'] }}</a></td>
+										    <td>{{ $transactions['desti_bank'] }}</td>
+										    <td>
+										    <?php
+                                                $count= strlen($transactions['sum_price']);
+                                                $price2 = 0;
+                                                if($count<=6)
+                                                    $price2 = substr($transactions['sum_price'],0,$count-3).".".substr($transactions['sum_price'],$count-3,3);
+                                                else if ($count==7)
+                                                    $price2 = substr($transactions['sum_price'],0,$count-6).".".substr($transactions['sum_price'],1,3).".".substr($transactions['sum_price'],$count-3,3);
+                    						?>
+                                            Rp {{ $price2 }}</td>
+										    <td>{{ $transactions['status'] }}</td>
+										    <td><a class="btn btn-primary" style="color:white" href="/upload/pembayaran/{{ $transactions['_id'] }}"><b>Upload</b></a></td>
+										    <td>{{ $transactions['date_buy'] }}</td>
+										  </tr>
+									@endif
+									@endforeach
+									</table>
+
+									{!! Form::close() !!}
+								</div>
 							</div>
                     </div>
             	</div>
-    		</div>
-    </div>		
+    		</div>	
+    </div>	
 	<!-- end content -->
 @stop
 @section('footer')

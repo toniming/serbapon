@@ -4,7 +4,7 @@ namespace app\Http\Controllers\Cms;
 
 use app\Http\Controllers\BaseController;
 use app\Model\User;
-use Request, Input, URL, Redirect, View;
+use Request, Input, URL, Redirect, View, Session;
 
 class UserController extends BaseController
 {
@@ -109,7 +109,10 @@ class UserController extends BaseController
     }
 
     public function logout(){
-          session()->flush();
+          Session::forget('Admin');
+          Session::forget('email_admin');
+          Session::forget('Editor');
+          Session::forget('email_editor');
           return Redirect::to('/cms/login');
     }
 
@@ -118,7 +121,7 @@ class UserController extends BaseController
         $user           = Input::all();
         $login   = $user1::where('email', $user['email'])->where('password', hash('md5',$user['password']))->where('role','Admin')->count();
          if($login > 0){
-            session(['Admin' => 'true', 'email' => $user['email']]);
+            session(['Admin' => 'true', 'email_admin' => $user['email']]);
             return Redirect::to('/cms');
         }
           else
@@ -130,10 +133,23 @@ class UserController extends BaseController
         $user           = Input::all();
         $login   = $user1::where('email', $user['email'])->where('password', hash('md5',$user['password']))->where('role','Editor')->count();
          if($login > 0){
-            session(['Editor' => 'true', 'email' => $user['email']]);
+            session(['Editor' => 'true', 'email_editor' => $user['email']]);
             return Redirect::to('/cms');
          }   
           else
             return Redirect::to('/cms/login')->with('message-danger', "Login gagal, pastikan username dan password anda benar.");
+    }
+
+    public function search(){
+        $search_result                          = User::where('email', 'like', '%'.Input::get('search').'%')
+                                                    ->paginate();
+        $this->page_datas->datas                = $search_result;
+        $this->page_datas->id                   = null;
+        //page attributes
+        $this->page_attributes->page_title      = 'Search Result: '.Input::get('search');
+        //generate view
+        $view_source                            = $this->view_root . '.users.index';
+        $route_source                           = Request::route()->getName();        
+        return $this->generateView($view_source , $route_source);
     }
 }

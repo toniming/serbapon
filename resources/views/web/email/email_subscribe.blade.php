@@ -6,20 +6,20 @@
 <body>
 	<div style="width:100%">
 		<div style="width:50%; float:left; padding-top:10px;">
-			<img src="http://i1364.photobucket.com/albums/r721/Beckz_Dos_Santos_Aveiro/adapromologo_zpsbkd5m2vl.png" style="width:70%;" alt="logo adapromo">
+			{!! Html::image('images/serbapon-footer.png', null, ['class' => 'card-img-top img-fluid']) !!}
 		</div>
 		<div style="width:50%;  float:left; text-align:right;">
-			<h3>PT Adapromo.id</h3>
+			<h3>Serbapon.id</h3>
 			<h6>Perum Araya Blok A, Blimbing, Malang.</h6>
 		</div>
 	</div>
 	<div style="width:100%">
-		<center><h4>Selamat! Anda berhasil berlangganan untuk promo-promo yang ada di <a href="http://adapromo.id/">adapromo.id</a>. Anda akan dikirimi promo-promo paling menarik melalui email ini.</h4></center>
+		<center><h4>Selamat! Anda berhasil berlangganan untuk kupon-kupon yang ada di <a href="http://adapromo.id/">serbapon.id</a>. Anda akan dikirimi kupon-kupon terbaru melalui email ini.</h4></center>
 	</div>
-	<div style="width:100%">
-		<div style="width:30%;float:left; font-size:10px;">PT Adapromo.id &copy; 2016</div>
+	<div style="width:100%"><h5>
+		<div style="width:30%;float:left; font-size:10px;">Serbapon.id &copy; 2016</div>
 		<div style="width:40%;float:left; font-size:10px;text-align:center;">Untuk berhenti berlangganan, silahkan klik <a href="http://localhost:8000/unsubscribe/{!! $unsubscribe_token !!}">disini</a>.</div>
-		<div style="width:30%;float:left; font-size:10px;text-align:right;">Newsletter Adapromo</div>
+		<div style="width:30%;float:left; font-size:10px;text-align:right;">Newsletter Serbapon.id</div></h5>
 	</div>
 </body>
 </html>

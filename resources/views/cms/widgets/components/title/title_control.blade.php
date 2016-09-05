@@ -36,6 +36,13 @@
 </a>
 @endif
 
+@if(isset($component['controls']['konfirmasi']))
+<a href="{{$component['controls']['konfirmasi']['link']}}" class="btn btn-primary pull-right ml-s" style="font-size:20px">
+	<i class="fa fa-check-circle-o"></i>
+	Konfirmasi
+</a>
+@endif
+
 
 
 <hr class="thick">

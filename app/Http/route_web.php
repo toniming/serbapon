@@ -13,6 +13,10 @@
 		Route::post('/update/{id}','UserController@update');
 		Route::post('/updatepass/{id}', 'UserController@update_password');
 		Route::get('/profil', 'UserController@profil');
+		Route::get('/detail/pembayaran/{id_notaa}', 'UserController@payment_detail');
+		Route::get('/upload/pembayaran/{id}','UserController@payment_upload');
+		Route::post('/upload/pembayaran/{id_nota}', 'UserController@payment_process_upload');
+		Route::get('/konfirmasi/berhasil', 'UserController@confirmation_done');
 		Route::post('/forgot','ForgotController@forgot');
 		Route::get('/forgot','ForgotController@forgot_view');
 		Route::get('/forgotsend/{email}', 'ForgotController@forgot_send');
@@ -23,10 +27,13 @@
 		Route::get('/aktivasi', 'HomeController@aktivasi');
 		Route::get('/signin', 'HomeController@signin');
 
+		//WEB
+		Route::get('/info','HomeController@info');
+		Route::get('/contact_us', 'HomeController@contact_us');
+
 
 		//Kupon
 		Route::get('/category/{cate}' , 'HomeController@category');
-		Route::get('/info','HomeController@info');
 		Route::get('/kupon/detail/{id}', 'HomeController@kupon_detail');
 		Route::get('/kupon', 'HomeController@kupon');
 		Route::post('/search','HomeController@search');
@@ -38,7 +45,7 @@
 		Route::get('/chart/pembelian','ChartController@chartView');
 		Route::get('/chart/delete/{id}','ChartController@chartDelete');
 		Route::get('/metode_pembayaran','ChartController@payment_method');
-		Route::get('/konfirmasi_pembayaran/{id_nota}', 'ChartController@payment_confirmation');
+		Route::get('/konfirmasi_pembayaran/{total}', 'ChartController@payment_confirmation');
 		Route::post('/upload/bukti/trans/{id_nota}', 'ChartController@payment_upload');
 
 

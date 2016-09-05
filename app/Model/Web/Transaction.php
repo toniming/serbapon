@@ -17,6 +17,7 @@ class Transaction extends Eloquent
                                             'image',
                                             'bank',
                                             'name_send',
+                                            'status',
                                         ];
     /**
      * Timestamp field

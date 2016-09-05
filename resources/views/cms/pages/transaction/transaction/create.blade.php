@@ -28,21 +28,17 @@
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Images</label><br>
-				{!! Html::image('images/'.$page_datas->datas['images']['originalName'], null, ['class' => 'card-img-top img-fluid', 'style' => 'height:200px; width:200px']) !!}<br>
+				{!! Html::image('images/'.$page_datas->datas['images'], null, ['class' => 'card-img-top img-fluid', 'style' => 'height:200px; width:200px']) !!}<br>
 				{!! Form::file('images', $page_datas->datas['images'], ['class' => 'form-control']) !!}
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Category</label><br>
 				<select name="category" class="form-control w-90">
-	  				<option value="Food "<?php if($page_datas->datas['category'] == 'Food') echo "selected";?>>Food</option>
-	  				<option value="Travel "<?php if($page_datas->datas['category'] == 'Travel') echo "selected";?>>Travel</option>
-	  				<option value="Vacation "<?php if($page_datas->datas['category'] == 'Vacation') echo "selected";?>>Vacation</option>
-	  				<option value="Service "<?php if($page_datas->datas['category'] == 'Service') echo "selected";?>>Service</option>
+	  				<option value="Food"<?php if($page_datas->datas['category'] == 'Food') echo "selected";?>>Food</option>
+	  				<option value="Travel"<?php if($page_datas->datas['category'] == 'Travel') echo "selected";?>>Travel</option>
+	  				<option value="Vacation"<?php if($page_datas->datas['category'] == 'Vacation') echo "selected";?>>Vacation</option>
+	  				<option value="Service"<?php if($page_datas->datas['category'] == 'Service') echo "selected";?>>Service</option>
 	  			</select>
-			</fieldset>
-			<fieldset class="form-group">
-				<label for="name">Email</label>
-				{!! Form::text('email_mine', $page_datas->datas['email_mine'], ['class' => 'form-control']) !!}
 			</fieldset>
 			<fieldset class="form-group">
 				<label for="name">Location</label>
@@ -60,6 +56,10 @@
 				<label for="name">End Date</label>
 				{!! Form::date('end', $page_datas->datas['end'], ['class' => 'form-control']) !!}
 			</fieldset>
+			<fieldset class="form-group">
+				<label for="name">Sell</label>
+				{!! Form::text('sell', $page_datas->datas['sell'], ['class' => 'form-control']) !!}
+			</fieldset>	
 			<fieldset class="form-group">
 				<label for="name">Old-Price</label>
 				{!! Form::text('old_price', $page_datas->datas['old_price'], ['class' => 'form-control']) !!}

@@ -67,7 +67,7 @@
                                     {!! Form::radio('sex', 'Man', ['class' => 'form-control']) !!} Pria
                                     {!! Form::radio('sex', 'Woman', ['class' => 'form-control']) !!} Wanita<br>
                                     <small>
-                                    {!! Form::checkbox('syarat', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    <input type="checkbox" name="test" required>
                                     Dengan ini saya menyetujui <a href="#">Syarat dan Ketentuan</a> adapromo untuk mendaftar akun<br><br>
                                     </small>
                                     {!! Form::submit('Daftar Baru', ['class' => 'btn btn-block green white-text', 'id' => 'btnsubmit']) !!}

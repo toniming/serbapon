@@ -7,6 +7,16 @@
         @stop
         @section('content')
         <!-- content -->
+        @if(Session::has('search'))
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 p-t-2">
+                    Hasil Pencarian <b>"{{ $title }}"</b> di <b>"{{ $location }}"</b> dengan rentan harga <b>"{{ $start }}"</b> - <b>"{{ $end }}"</b> dengan urutan dari <b>"{{ $category }}"</b>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 col-lg-12 p-t-2">

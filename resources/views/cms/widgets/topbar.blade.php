@@ -32,6 +32,11 @@
 					<i class="fa fa-users fa-2x fa-fw"></i><br>Users
 				</a>
 			</li>
+			<li class="list-inline-item text-xs-center">
+				<a href="{{ route('cms.transaction.transaction.index') }}" class="block p-y-1 p-x-0 ">
+					<i class="fa fa-cart-arrow-down fa-2x fa-fw"></i><br>Transaction
+				</a>
+			</li>
 			@endif
 		</ul>
 	</div>

@@ -35,18 +35,22 @@
                     </div>
                     <div class="col-md-2 col-lg-2 black-text">
                     <?php
-                                                $count= strlen($kupons['sum_price']);
+                                                $count= strlen($kupons['sub_price']);
                                                 $price2 = 0;
                                                 if($count<=6)
-                                                    $price2 = substr($kupons['sum_price'],0,$count-3).".".substr($kupons['sum_price'],$count-3,3);
+                                                    $price2 = substr($kupons['sub_price'],0,$count-3).".".substr($kupons['sub_price'],$count-3,3);
                                                 else if ($count==7)
-                                                    $price2 = substr($kupons['sum_price'],0,$count-6).".".substr($kupons['sum_price'],1,3).".".substr($kupons['sum_price'],$count-3,3);
+                                                    $price2 = substr($kupons['sub_price'],0,$count-6).".".substr($kupons['sub_price'],1,3).".".substr($kupons['sub_price'],$count-3,3);
                     ?>
                                             Rp {{ $price2 }}
                     </div>
+
+                    <div class="col-md-4 col-lg-4"><b style="font-size:20px">
+                        <a class="cart_quantity_delete  pull-right" href="/chart/delete/{{ $kupons['_id'] }} "><i class="fa fa-trash"></i></a></b>
+                    </div>
                 </div>
                 <?php 
-                    $total += $kupons['sum_price'];
+                    $total += $kupons['sub_price'];
                 ?>
                 @endif
                 @endforeach
@@ -71,6 +75,7 @@
                     </b></div>
                 </div>
             </div>
+            <button onclick="goBack()" class="btn btn-default fa fa-chevron-left" style="height:50px; width:200px">&nbsp Belanja Lagi</button>
             <div class="pull-right">
                 <a href="/konfirmasi_pembayaran/{{$total}}" class="btn btn-block btn-success" style="height:60px; width:300px; padding-top:20px"><b>Check Out</b></a><br>
             </div>

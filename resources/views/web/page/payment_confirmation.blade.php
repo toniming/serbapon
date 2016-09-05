@@ -9,9 +9,7 @@
                 <div class="card-block white-text" style="background-color:#808080">
                     <b>Konfirmasi Pembayaran</b>
                 </div>
-                @foreach ($transaction1 as $k => $transactions)
-                @if($id_trans == $transactions['_id'])
-                {!! Form::open(['url' => '/upload/bukti/trans/'.$transactions['id_notaa'], 'method' => 'post','files' => true ]) !!}
+                {!! Form::open(['url' => '/upload/pembayaran/'.$transactions['id_notaa'], 'method' => 'post','files' => true ]) !!}
                 <div class="card" style="margin-top:20px; margin-left:30px; width:70%">
                     <div class="card-block">
                         <div class="col-md-4 col-lg-4 black-text">
@@ -74,16 +72,15 @@
                         </div>
                     </div>
                     <div class="card-block">
+                        <div class="col-md-3 col-lg-3 black-text">
+                            <button onclick="goBackProfil()" class="btn btn-default fa fa-chevron-left" style="height:50px; width:150px">&nbsp Kembali</button>
+                        </div>
                         <div class="col-md-4 col-lg-4 black-text">
-                            <div class="pull-left">
                             {!! Form::submit('Upload', ['class' => 'btn btn-block btn-primary','style' => 'height:50px; width:130px; padding-top:12px']) !!}
-                            </div>
                         </div>
                     </div>
                 </div>
                 {!! Form::close() !!}
-                @endif
-                @endforeach
         </div>
              
     </div>

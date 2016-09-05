@@ -34,6 +34,10 @@
 			'content'	=>  ucfirst($page_datas->datas['category'])
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
+			'title'		=> 'Email',
+			'content'	=>  ucfirst($page_datas->datas['email_mine'])
+		]])
+		@include('cms.widgets.components.detail.detail-text',['component' => [
 			'title'		=> 'Location',
 			'content'	=>  ucfirst($page_datas->datas['location'])
 		]])

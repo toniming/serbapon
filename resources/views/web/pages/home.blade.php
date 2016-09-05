@@ -7,6 +7,7 @@
 @stop
 @section('content')
 	<!-- content -->
+
 	@if(Session::has('message-success'))
 		<center><div class="alert alert-success">{{Session::get('message-success')}}</div></center>
 	@endif

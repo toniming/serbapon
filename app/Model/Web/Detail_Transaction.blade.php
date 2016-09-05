@@ -11,12 +11,10 @@ class Detail_Transaction extends Eloquent
     protected $fillable             =   [
                                             'id_user',
                                             'id_nota',
-                                            'images',
-                                            'title',
-                                            'price',
+                                            'id_kupon',
                                             'quantity',
-                                            'sum_price',
-                                            'sum_all_price',
+                                            'sub_price',
+                                            
                                         ];
     /**
      * Timestamp field

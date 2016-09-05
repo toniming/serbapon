@@ -52,7 +52,7 @@
                             <?php  echo $kupons['description']  ?><br /><br />
                             <a href="#" class="btn btn-block green white-text" data-toggle="modal" data-target="#exampleModal" style="height:50px; padding-top:12px; letter-spacing:3px"><b>Buy Now</b></a>
                         </div>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel">
                         
                             <div class="modal-dialog" role="document">
                             {!! Form::open(array('url' => '/chart/pembelian/'.$kupons['_id'])) !!}
@@ -115,7 +115,7 @@
                                       </div>
                                       <div class="col-md-6 col-lg-6">
                                         <b><div class="pull-right" id="demo"></div></b>
-                                        <input type="hidden" id="total" name="sum_price">
+                                        <input type="hidden" id="total" name="sub_price">
                                       </div><br><br><br><br>
                                     </div>
                                 </div><br>
@@ -125,7 +125,7 @@
                                    <input type="submit" value="beli kupon" class="btn btn-block btn-success"></button> 
                                 </div>
                               </div>
-                              {!! Form::close() !!}
+
                             </div>
                           </div>
                         @endforeach
@@ -136,10 +136,12 @@
                         @foreach($related as $relateds)
                         <div class="col-md-12 col-lg-12">
                             <div class="card">
+                            <a href="/kupon/detail/{{ $relateds['_id'] }}">
                                 {!! Html::image('images/'.$relateds['images']['originalName'], null, ['class' => 'card-img-top img-fluid', 'style' => 'width:350px; height:230px']) !!}
+                            </a>
                                 <div class="card-block">
                                     <h5 class="card-title">
-                                        <a href="" class="dark-blue-text">
+                                        <a href="/kupon/detail/{{ $relateds['_id'] }}" class="dark-blue-text">
                                         <?php
                                             $sum=strlen($relateds['title']);
                                             $sum2=$sum-55;
@@ -148,7 +150,6 @@
                                             else
                                                 $title = $relateds['title'];
                                         ?>
-
                                         {{ $title }}
                                         </a>
                                     </h5>

@@ -21,14 +21,14 @@
   			</li>
         @endif
   			<li class="nav-item">
-  				<a href="{{ url('/info') }}" class="nav-link white-text m-r-2 p-b-0"><strong>CONTACT US</strong></a>
+  				<a href="{{ url('/contact_us') }}" class="nav-link white-text m-r-2 p-b-0"><strong>CONTACT US</strong></a>
   			</li>
         @if(Session::has('User'))
         <li class="nav-item">
           <a class="nav-link white-text m-r-2 p-b-0 w-100" href="/profil"><strong><i class="fa fa-user fa-lg"></i></strong></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link white-text m-r-2 p-b-0 w-100" href="/chart/pembelian"><strong><i class="fa fa-shopping-cart fa-lg"></i></strong></a>
+          <a class="nav-link white-text m-r-2 p-b-0 w-100" href="/metode_pembayaran"><strong><i class="fa fa-shopping-cart fa-lg"></i></strong></a>
         </li>
         <li class="nav-item">
           <a class="nav-link white-text m-r-2 p-b-0 w-100" href="{{ url('/logout') }}"><strong><i class="fa fa-sign-out"></i>Logout</strong></a>

@@ -52,10 +52,11 @@ class KuponController extends BaseController
     public function store($id = null)
     {
         //get input
-        $input                                   = Input::only('title','images','category','location', 'description','start','end', 'sell', 'old_price', 'price');
-
+        $input                                   = Input::only('title','images','category','location', 'email_mine' ,'description','start','end', 'sell', 'old_price', 'price');
         //create or edit
         $kupon                                   = Kupon::findOrNew($id);
+
+        $quantiti                                = '0';
         //save data
         $kupon->title                            = $input['title'];
         if($kupon->images == null){
@@ -70,10 +71,11 @@ class KuponController extends BaseController
         }
         $kupon->category                         = $input['category'];
         $kupon->location                         = $input['location'];
+        $kupon->email_mine                       = $input['email_mine'];
         $kupon->description                      = $input['description'];
         $kupon->start                            = $input['start'];
         $kupon->end                              = $input['end'];
-        $kupon->sell                             = $input['sell'];
+        $kupon->sell                             = (int)$quantiti;
         $kupon->old_price                        = $input['old_price'];
         $kupon->price                            = (int)$input['price'];
         $kupon->published_at                     = date('Y-m-d H:m:s');
@@ -113,5 +115,18 @@ class KuponController extends BaseController
 
         $this->page_attributes->msg = 'Data telah dihapus.';
         return Redirect::to('/cms/kupon/kupon')->with('msg', 'Data telah disimpan.');
+    }
+
+    public function search(){
+        $search                                 = Kupon::where('title', 'like', '%'.Input::get('search').'%')
+                                                    ->paginate();
+        $this->page_datas->datas                = $search;
+        $this->page_datas->id                   = null;
+        //page attributes
+        $this->page_attributes->page_title      = 'Search Result: '.Input::get('search');
+        //generate view
+        $view_source                            = $this->view_root . '.kupon.kupon.index';
+        $route_source                           = Request::route()->getName();        
+        return $this->generateView($view_source , $route_source);
     }
 }
