@@ -78,7 +78,7 @@
 						<ul class="list-unstyled">
 							<li><a href="/info" class="dark-text">About US</a></li>
 							<li><a href="#" class="dark-text">Contact US</a></li>
-							<li><a href="#" class="dark-text">FAQ</a></li>
+							<li><a href="/FAQ" class="dark-text">FAQ</a></li>
 							<li><a href="#" class="dark-text">Syarat dan Ketentuan</a></li>
 							<li><a href="#" class="dark-text">Daftarkan Promosi Anda</a></li>
 						</ul>

@@ -6,16 +6,16 @@ use app\Http\Controllers\BaseController;
 use app\Model\web_config;
 use Request, Input, URL, Redirect;
 
-class FAQController extends BaseController
+class SyaratController extends BaseController
 {
     // init
-    protected $view_root    = 'cms.pages.FAQ';
-    protected $page_title   = 'FAQ';
+    protected $view_root    = 'cms.pages.Syarat';
+    protected $page_title   = 'Syarat';
     protected $breadcrumb   = [];
 
     public function index()
     {
-        $datas                                  = web_config::where('type','FAQ')->paginate(10);
+        $datas                                  = web_config::paginate(10);
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = null;
         //page attributes
@@ -54,16 +54,16 @@ class FAQController extends BaseController
         //get input
         $input                                  = Input::only('pertanyaan','jawaban');
         //create or edit
-        $FAQ                                    = web_config::findOrNew($id);
+        $Syarat                                    = web_config::findOrNew($id);
         //save data
-        $FAQ->content                           = ['pertanyaan' => $input['pertanyaan'],
+        $Syarat->content                           = ['pertanyaan' => $input['pertanyaan'],
                                                     'jawaban' => $input['jawaban']
                                                   ];
         
-        $FAQ->type                              = 'FAQ';
-        $FAQ->save();
+        $Syarat->type                              = 'Syarat';
+        $Syarat->save();
         $this->page_attributes->msg             = 'Data telah disimpan';
-        return Redirect::to('/cms/FAQ/FAQ')->with('msg', 'Data telah disimpan.');
+        return Redirect::to('/cms/Syarat/Syarat')->with('msg', 'Data telah disimpan.');
     }
 
     public function show($id)
@@ -92,9 +92,9 @@ class FAQController extends BaseController
 
     public function destroy($id)
     {
-        $FAQ                      = web_config::find($id)->delete();
+        $Syarat                      = web_config::find($id)->delete();
 
         $this->page_attributes->msg = 'Data telah dihapus.';
-        return Redirect::to('/cms/FAQ/FAQ')->with('msg', 'Data telah disimpan.');
+        return Redirect::to('/cms/Syarat/Syarat')->with('msg', 'Data telah disimpan.');
     }
 }

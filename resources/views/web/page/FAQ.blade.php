@@ -10,13 +10,13 @@
                 <div class="col-md-1 col-lg-1">&nbsp;</div>
                 <div class="col-md-10 col-lg-10">
                     <div class="col-md-8 col-lg-8">
-                        
-                        @foreach($about as $abouts)
                         <div class="card p-a-2">
-                            <h3 class="dark-blue-text"><b>{{ $abouts['type'] }}</b></h3><hr/>
-                            <div class="text-justify"> <?php  echo $abouts['content']['About']  ?></div>
-                        </div>
+                        <h3 class="dark-blue-text"><b>FAQ</b></h3><hr/>
+                        @foreach($FAQ as $FAQs)
+                            <div class="dark-blue-text"><b>{{ $FAQs['content']['pertanyaan'] }}</b></div>
+                            <div class="text-justify"> {{ $FAQs['content']['jawaban'] }}</div><br>
                         @endforeach
+                        </div>
                     </div>
                     <div class="col-md-4 col-lg-4">
                         <center><h4><b>NEW PROMO:</b></h4></center>

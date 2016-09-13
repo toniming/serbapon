@@ -53,6 +53,45 @@ Route::group(['namespace' => 'Cms\\', 'prefix' => 'cms'], function(){
 	Route::post('/transaction/transaction/search', ['uses' => 'TransactionController@search', 'as' => 'cms.transaction.search']);
 
 
+	Route::resource('/About/About', 'AboutController', ['names' => [
+			'index' 	=> 'cms.about.about.index',
+			'create'	=> 'cms.about.about.create', 
+			'store' 	=> 'cms.about.about.store', 
+			'show' 		=> 'cms.about.about.show', 
+			'edit' 		=> 'cms.about.about.edit', 
+			'update' 	=> 'cms.about.about.update', 
+			'destroy' 	=> 'cms.about.about.destroy',
+	]]);
+	Route::post('/transaction/transaction/search', ['uses' => 'TransactionController@search', 'as' => 'cms.transaction.search']);
+
+
+	Route::resource('/contact/contact', 'ContactController', ['names' => [
+			'index' 	=> 'cms.contact.contact.index',
+			'create'	=> 'cms.contact.contact.create', 
+			'store' 	=> 'cms.contact.contact.store', 
+			'show' 		=> 'cms.contact.contact.show', 
+			'edit' 		=> 'cms.contact.contact.edit', 
+			'update' 	=> 'cms.contact.contact.update', 
+			'destroy' 	=> 'cms.contact.contact.destroy',
+	]]);
+	Route::post('/transaction/transaction/search', ['uses' => 'TransactionController@search', 'as' => 'cms.transaction.search']);
+
+
+	Route::resource('/syarat/syarat', 'SyaratController', ['names' => [
+			'index' 	=> 'cms.syarat.syarat.index',
+			'create'	=> 'cms.syarat.syarat.create', 
+			'store' 	=> 'cms.syarat.syarat.store', 
+			'show' 		=> 'cms.syarat.syarat.show', 
+			'edit' 		=> 'cms.syarat.syarat.edit', 
+			'update' 	=> 'cms.syarat.syarat.update', 
+			'destroy' 	=> 'cms.syarat.syarat.destroy',
+	]]);
+	Route::post('/transaction/transaction/search', ['uses' => 'TransactionController@search', 'as' => 'cms.transaction.search']);
+
+
+	Route::post('/transaction/transaction/search', ['uses' => 'TransactionController@search', 'as' => 'cms.transaction.search']);
+
+
 	Route::get('/cms/transaction/transaction/{id}', 		['uses' => 'TransactionController@confirmation', 'as' => 'transaction.confirmation']);
 	Route::get('/cms/transaction/transaction/showDetail/{id_nota}', 		['uses' => 'TransactionController@showdetail', 'as' => 'transaction.detail']);
 });

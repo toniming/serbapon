@@ -16,10 +16,12 @@
 	]])
 	</div>
 	@include('cms.widgets.alertbox')
+	@forelse ($page_datas->users as $keys => $user)
+	@if($page_datas->datas['id_user'] == $user['_id'])
 	<div class="card-block">
 		@include('cms.widgets.components.detail.detail-text',['component' => [
 			'title'		=> 'Email User',
-			'content'	=>  ucfirst($page_datas->datas['id_user'])
+			'content'	=>  $user['email']
 		]])
 		@include('cms.widgets.components.detail.detail-text',['component' => [
 			'title'		=> 'Bukti Trans',
@@ -67,5 +69,8 @@
 			'content'	=>  ucfirst($page_datas->datas['name_send'])
 		]])	
 	</div>
+	@endif
+	@empty	
+	@endforelse	
 </div>
 @stop

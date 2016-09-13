@@ -27,9 +27,6 @@
 		Route::get('/aktivasi', 'HomeController@aktivasi');
 		Route::get('/signin', 'HomeController@signin');
 
-		//WEB
-		Route::get('/info','HomeController@info');
-		Route::get('/contact_us', 'HomeController@contact_us');
 
 
 		//Kupon
@@ -55,6 +52,9 @@
 		Route::get('/subscribe', 'SubscribeController@subscribe_success');
 		Route::get('/unsubscribe/{unsubscribe_token}', 'SubscribeController@unsubscribe');
 		Route::get('/unsubscribe', 'SubscribeController@unsubscribe_newsletter');
+		Route::get('/info','HomeController@info');
+		Route::get('/contact_us', 'HomeController@contact_us');
+		Route::get('/FAQ','HomeController@FAQ');
 
 		
 

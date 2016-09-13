@@ -20,6 +20,7 @@ class TransactionController extends BaseController
     {
         $datas                                  = Transaction::paginate(10);
         $user                                   = User::all();
+        $search_result                          = null;
         $this->page_datas->users                = $user;
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = null;
@@ -29,7 +30,7 @@ class TransactionController extends BaseController
 
         $view_source                            = $this->view_root . '.transaction.transaction.index';
         $route_source                           = Request::route()->getName();        
-        return $this->generateView($view_source , $route_source);
+        return $this->generateView($view_source , $route_source, $search_result);
     }
 
     public function create($id = null)
@@ -93,6 +94,9 @@ class TransactionController extends BaseController
     {
         //get data
         $datas                                  = Transaction::find($id);
+        $user                                   = User::all();
+
+        $this->page_datas->users                = $user;
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = $id;
         //page attributes
@@ -194,5 +198,21 @@ class TransactionController extends BaseController
       $detail_transaction                      = Detail_Transaction::all();
       $kupon                                   = Kupon::all();
       return View::make('cms.pages.transaction.transaction.showDetail')->with(['id_nota' => $id_nota, 'detail_transaction' =>  $detail_transaction, 'kupon' => $kupon]);
+    }
+
+    public function search()
+    {
+        $search_result                          = Transaction::where('status', 'like', '%'.Input::get('search').'%')
+                                                    ->paginate();
+        $user                                   = User::all();
+        $this->page_datas->users                = $user;
+        $this->page_datas->datas                = $search_result;
+        $this->page_datas->id                   = null;
+        //page attributes
+        $this->page_attributes->page_title      = 'Search Result: '.Input::get('search');
+        //generate view
+        $view_source                            = $this->view_root . '.transaction.transaction.index';
+        $route_source                           = Request::route()->getName();        
+        return $this->generateView($view_source , $route_source, $search_result);
     }
 }

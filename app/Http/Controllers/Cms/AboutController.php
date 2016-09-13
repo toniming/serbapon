@@ -6,24 +6,25 @@ use app\Http\Controllers\BaseController;
 use app\Model\web_config;
 use Request, Input, URL, Redirect;
 
-class FAQController extends BaseController
+class AboutController extends BaseController
 {
     // init
-    protected $view_root    = 'cms.pages.FAQ';
-    protected $page_title   = 'FAQ';
+    protected $view_root    = 'cms.pages.About';
+    protected $page_title   = 'About';
     protected $breadcrumb   = [];
 
     public function index()
     {
-        $datas                                  = web_config::where('type','FAQ')->paginate(10);
-        $this->page_datas->datas                = $datas;
+        $about                                  = web_config::where('type','About')->paginate(10);
+        $this->page_datas->datas                = $about;
         $this->page_datas->id                   = null;
         //page attributes
         $this->page_attributes->page_title      = $this->page_title;
         //generate view
+
         $view_source                            = $this->view_root . '.index';
         $route_source                           = Request::route()->getName();        
-        return $this->generateView($view_source , $route_source);
+        return $this->generateView($view_source , $route_source)->with('kevin-gray',"sayang");
     }
 
     public function create($id = null)
@@ -52,24 +53,23 @@ class FAQController extends BaseController
     public function store($id = null)
     {
         //get input
-        $input                                  = Input::only('pertanyaan','jawaban');
+        $input                                    = Input::only('about');
         //create or edit
-        $FAQ                                    = web_config::findOrNew($id);
+        $About                                    = web_config::findOrNew($id);
         //save data
-        $FAQ->content                           = ['pertanyaan' => $input['pertanyaan'],
-                                                    'jawaban' => $input['jawaban']
+        $About->content                           = ['About' => $input['about']
                                                   ];
         
-        $FAQ->type                              = 'FAQ';
-        $FAQ->save();
+        $About->type                              = 'About';
+        $About->save();
         $this->page_attributes->msg             = 'Data telah disimpan';
-        return Redirect::to('/cms/FAQ/FAQ')->with('msg', 'Data telah disimpan.');
+        return Redirect::to('/cms/About/About')->with('msg', 'Data telah disimpan.');
     }
 
     public function show($id)
     {
         //get data
-        $datas                                  = web_config::find($id);
+        $datas                                  = web_config::where('type','About')->find($id);
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = $id;
         //page attributes
@@ -92,9 +92,9 @@ class FAQController extends BaseController
 
     public function destroy($id)
     {
-        $FAQ                      = web_config::find($id)->delete();
+        $About                      = web_config::find($id)->delete();
 
         $this->page_attributes->msg = 'Data telah dihapus.';
-        return Redirect::to('/cms/FAQ/FAQ')->with('msg', 'Data telah disimpan.');
+        return Redirect::to('/cms/About/About')->with('msg', 'Data telah disimpan.');
     }
 }

@@ -6,16 +6,16 @@ use app\Http\Controllers\BaseController;
 use app\Model\web_config;
 use Request, Input, URL, Redirect;
 
-class FAQController extends BaseController
+class ContactController extends BaseController
 {
     // init
-    protected $view_root    = 'cms.pages.FAQ';
-    protected $page_title   = 'FAQ';
+    protected $view_root    = 'cms.pages.Contact';
+    protected $page_title   = 'Contact';
     protected $breadcrumb   = [];
 
     public function index()
     {
-        $datas                                  = web_config::where('type','FAQ')->paginate(10);
+        $datas                                  = web_config::where('type','Contact')->paginate(10);
         $this->page_datas->datas                = $datas;
         $this->page_datas->id                   = null;
         //page attributes
@@ -52,18 +52,16 @@ class FAQController extends BaseController
     public function store($id = null)
     {
         //get input
-        $input                                  = Input::only('pertanyaan','jawaban');
+        $input                                  = Input::only('contact');
         //create or edit
-        $FAQ                                    = web_config::findOrNew($id);
+        $Contact                                = web_config::findOrNew($id);
         //save data
-        $FAQ->content                           = ['pertanyaan' => $input['pertanyaan'],
-                                                    'jawaban' => $input['jawaban']
-                                                  ];
+        $Contact->content                       = ['contact' => $input['contact']];
         
-        $FAQ->type                              = 'FAQ';
-        $FAQ->save();
+        $Contact->type                          = 'Contact';
+        $Contact->save();
         $this->page_attributes->msg             = 'Data telah disimpan';
-        return Redirect::to('/cms/FAQ/FAQ')->with('msg', 'Data telah disimpan.');
+        return Redirect::to('/cms/contact/contact')->with('msg', 'Data telah disimpan.');
     }
 
     public function show($id)
@@ -92,9 +90,9 @@ class FAQController extends BaseController
 
     public function destroy($id)
     {
-        $FAQ                      = web_config::find($id)->delete();
+        $Contact                      = web_config::find($id)->delete();
 
         $this->page_attributes->msg = 'Data telah dihapus.';
-        return Redirect::to('/cms/FAQ/FAQ')->with('msg', 'Data telah disimpan.');
+        return Redirect::to('/cms/Contact/Contact')->with('msg', 'Data telah disimpan.');
     }
 }

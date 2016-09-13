@@ -118,8 +118,10 @@ class ChartController extends BaseController
 					$transactions->desti_bank				= $input['desti_bank'];
 
 				  	$file= Input::file('images');
-			        Input::file('images')->move('C:\xampp\htdocs\serbaponbackend\public\images',Input::file('images')->getClientOriginalName());
-			        $transactions->images                   = $input['images'];
+				  	$extension = Input::file('images')->getClientOriginalExtension();
+            		$fileName = date('YmdHis')+rand(11111,99999).'.'.$extension;
+              		Input::file('images')->move('C:\xampp\htdocs\serbaponbackend\public\images',$fileName);
+			        $transactions->images                   = $fileName;
 				  	$transactions->bank  				    = $input['bank'];
 				  	$transactions->name_send 				= $input['name_send'];
 				  	$transactions->status  					= 'Menunggu Konfirmasi';

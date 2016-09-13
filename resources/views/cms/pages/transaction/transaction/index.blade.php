@@ -5,7 +5,7 @@
 	@include('cms.widgets.components.title.title_add_search', ['component' => [
 		'title'			=> 'transaction ' . $page_datas->datas->currentPage(),
 		'link-add'		=> route('cms.transaction.transaction.create'),
-		'link-search'	=> '#',
+		'link-search'	=> route('cms.transaction.search'),
 	]])
 	</div>
 	@include('cms.widgets.alertbox')
@@ -24,8 +24,9 @@
 				</thead>
 				<tbody>
 					@forelse ($page_datas->datas as $key => $data)
-						@forelse ($page_datas->users as $keys => $user)
+					@forelse ($page_datas->users as $keys => $user)
 					@if($user['id'] == $data['id_user'])
+
 						<tr>
 							<td class="col-md-1">
 								{{($page_datas->datas->perpage() * ($page_datas->datas->currentPage()-1)) + ($key + 1)}}

@@ -3,6 +3,7 @@
 namespace app\Http\Controllers;
 
 use app\Model\Kupon;
+use app\Model\web_config;
 use app\Http\Controllers\Controller;
 
 use Request;
@@ -16,11 +17,13 @@ class HomeController extends Controller
 {
     public function home(){
         $kupon1             = new Kupon();
-        $kupon              = $kupon1::skip(0)->take(6)->get();
+        $now                = date('Y-m-d H:m:s');
+        $kupon              = $kupon1::where('end', '>=', $now)->skip(0)->take(6)->get();
         return View::make('web.pages.home')->with(['kupon' => $kupon]);
     }
     public function kupon(){
-        $kupon              = Kupon::paginate(12);
+        $now                = date('Y-m-d H:m:s');
+        $kupon              = Kupon::where('end', '>=', $now)->paginate(12);
         return View::make('web.page.kupon')->with(['kupon' => $kupon]);
     }
     public function kupon_detail($id){
@@ -49,7 +52,7 @@ class HomeController extends Controller
     }
 
     public function category($cate){
-      $category           = Kupon::where('category',$cate)->paginate(9);
+      $category           = Kupon::where('category',$cate." ")->where('end', '>=', $now)->paginate(9);
       return View::make('web.page.kupon')->with(['kupon' => $category]);
     }
 
@@ -104,104 +107,105 @@ class HomeController extends Controller
     public function search(){
       //dd(Input::get('end_price'));
       $input               = Input::all();
+      $now                = date('Y-m-d H:m:s');
       if($input['deal'] != null && $input['location'] == null && $input['start_price'] == null && $input['end_price'] == null ){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('published_at', 'desc')->where('category','like','%'.$input['category'].'%')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('published_at', 'desc')->where('category','like','%'.$input['category'].'%')->paginate(12);
               dd($input['category']);
                 
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->orderBy('sell', 'desc')->paginate(12);
           }
       }
       else if($input['deal']!= null && $input['location'] == null && $input['start_price'] != null && $input['end_price'] != null ){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('published_at', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('published_at', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('sell', 'desc')->paginate(12);
           }
       }
       else if($input['deal']== null && $input['location'] == null && $input['start_price'] != null && $input['end_price'] != null ){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('published_at', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('published_at', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('sell', 'desc')->paginate(12);
           }
       }
       else if($input['deal']== null && $input['location'] != null && $input['start_price'] == null && $input['end_price'] == null ){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('published_at', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('published_at', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('sell', 'desc')->paginate(12);
           }
       }
       else if($input['deal'] != null && $input['location'] != null && $input['start_price'] != null && $input['end_price'] != null ){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('published_at', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('published_at', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->whereBetween('price',[(int)$input['start_price'],(int)$input['end_price']])->orderBy('sell', 'desc')->paginate(12);
           }
       }
       else if($input['deal'] != null && $input['location'] != null && $input['start_price'] == null && $input['end_price'] == null ){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('published_at', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('published_at', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->where('title','like','%'.$input['deal'].'%')->where('location','like','%'.$input['location'].'%')->orderBy('sell', 'desc')->paginate(12);
           }
       }
       else if($input['deal'] == null && $input['location'] == null && $input['start_price'] == null && $input['end_price'] == null){
           if($input['cat'] == 'Terbaru'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->orderBy('published_at', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->orderBy('published_at', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Termurah'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->orderBy('price', 'asc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->orderBy('price', 'asc')->paginate(12);
           }
           else if($input['cat'] == 'Termahal'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->orderBy('price', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->orderBy('price', 'desc')->paginate(12);
           }
           else if($input['cat'] == 'Terlaris'){
-              $kupon           = Kupon::where('category','like','%'.$input['category'].'%')->orderBy('sell', 'desc')->paginate(12);
+              $kupon           = Kupon::where('end', '>=', $now)->where('category','like','%'.$input['category'].'%')->orderBy('sell', 'desc')->paginate(12);
           }
       }
       $title = $input['deal'] ;
@@ -209,46 +213,21 @@ class HomeController extends Controller
     }
     
     public function info(){
-      $data = array(
-            array('title' => 'About Us', 
-                  'isi' => 'AdaPromo.id dibuat sebagai media promosi bagi para pelaku usaha yang ingin mempromosikan produk atau jasanya melalui sebuah website yang bisa dilihat oleh kalangan luas.')
-            );
-        $data = json_encode($data);
-        $related = array(
-            array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                  'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-            array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                  'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-            array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                  'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.')
-            );
-        $related = json_encode($related);
-        return View::make('web.page.info')->with(['data' => $data, 'related' => $related]);
+      $related            = Kupon::paginate(3);
+      $about                       = web_config::where('type','About')->get();
+      return View::make('web.page.info')->with(['about' => $about,'related' => $related]);
     }
 
     public function contact_us(){
-      $data = array(
-            array('title' => 'If you are a customer', 
-                  'isi' => 'Groupon Indonesia 
-                            TCC Batavia, Lantai 6 
-                            Jl KH. Mas Mansyur Kav 126, Tanah Abang 
-                            Jakarta Pusat, 10220 
-                            Telephone: +6221 - 29 529 352 
-                            E-mail: customercare@groupon.co.id '),
-            array('title' => 'If you are a business owner', 
-                  'isi' => 'AdaPromo.id dibuat sebagai media promosi bagi para pelaku usaha yang ingin mempromosikan produk atau jasanya melalui sebuah website yang bisa dilihat oleh kalangan luas.')
-            );
-        $data = json_encode($data);
-        $related = array(
-            array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                  'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-            array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                  'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.'),
-            array('title' => 'Promo Ekstra Diskon Pembelian ASUS, ACER & Gigabyte', 
-                  'isi' => 'Welcome To The Online Best Model Winner Contest At Look Of the Year. Syarat dan Ketentuan Berlaku.')
-            );
-        $related = json_encode($related);
-        return View::make('web.page.contact_us')->with(['data' => $data, 'related' => $related]);
+      $related                         = Kupon::paginate(3);
+      $contact                         = web_config::where('type','Contact')->get();
+      return View::make('web.page.contact_us')->with(['contact' => $contact,'related' => $related]);
+    }
+
+    public function FAQ(){
+      $related                     = Kupon::paginate(3);
+      $FAQ                         = web_config::where('type','FAQ')->get();
+      return View::make('web.page.FAQ')->with(['FAQ' => $FAQ,'related' => $related]);
     }
     /*public function info(){
        $data = array(
